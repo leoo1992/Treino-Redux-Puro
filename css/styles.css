@@ -24,3 +24,8 @@ h2 {
 #falta {
   color: #e74c3c;
 }
+
+#image {
+  display: none;
+  background-color: #eee;
+}

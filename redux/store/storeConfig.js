@@ -29,10 +29,18 @@ const alertMiddleware = (_s) => (next) => (action) => {
   return next(action);
 };
 
+const thunk = ({dispatch, getState}) => (next) => (action) => {
+  if (typeof action === 'function') {
+    return action(dispatch, getState);
+  } else {
+    return next(action);
+  }
+};
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(logMiddleware, alertMiddleware)
+  applyMiddleware(thunk, logMiddleware, alertMiddleware)
 );
 
 const store = createStore(reducer, enhancer);
