@@ -11,21 +11,11 @@ import render from "./render.js";
 
 render();
 
-const aulaReact = { 
-    id: 5,
-    nome: 'React',
-    completa: false
-}
-
 store.subscribe(render);
-store.dispatch(resetarCurso());
-store.dispatch(completarAula(3));
-store.dispatch(completarAula(4));
-store.dispatch(completarCurso());
+
+store.dispatch(alunoIncrementarTempo());
+
 store.dispatch(alunoReduzirTempo());
+
+
 store.dispatch(alunoIncrementarTempo());
-store.dispatch(alunoIncrementarTempo());
-store.dispatch(alunoModificarEmail('santos-contato@hotmail.com.br'));
-store.dispatch(alunoModificarTempo(300));
-store.dispatch(alunoModificarNome('Leonardo Santos Custódio'));
-store.dispatch(adicionarAula(aulaReact));
