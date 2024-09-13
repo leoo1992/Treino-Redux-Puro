@@ -28,7 +28,7 @@ function fetchUrl(url) {
       if (data.message) {
         dispatch(alunoGetImageError(data.message));
       } else {
-        dispatch(alunoGetImageSuccess(data));
+        dispatch(alunoGetImageSuccess(data, localStorage));
       }
     } catch (error) {
       dispatch(alunoGetImageError(error.message));

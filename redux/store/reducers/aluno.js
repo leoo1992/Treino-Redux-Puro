@@ -14,6 +14,7 @@ export const alunoGetImage = () => ({ type: START_FETCH });
 export const alunoGetImageSuccess = (payload) => ({
   type: FETCH_SUCCESS,
   payload,
+  localStorage: 'data-img'
 });
 
 export const alunoGetImageError = (payload) => ({
