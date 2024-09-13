@@ -1,29 +1,23 @@
+import store from "../redux/store/storeConfig.js";
+import render from "./render.js";
 import {
+  alunoModificarEmail,
+  alunoModificarTempo,
+  alunoModificarNome,
   alunoIncrementarTempo,
   alunoReduzirTempo,
-  //   alunoModificarEmail,
-  //   alunoModificarTempo,
-  //   alunoModificarNome,
   alunoGetImageSuccess,
   alunoGetImageError,
   alunoGetImage,
 } from "../redux/store/reducers/aluno.js";
-// import {
-//   completarAula,
-//   completarCurso,
-//   resetarCurso,
-//   adicionarAula,
-// } from "../redux/store/reducers/aulas.js";
-import store from "../redux/store/storeConfig.js";
-import render from "./render.js";
+import {
+  completarAula,
+  completarCurso,
+  resetarCurso,
+  adicionarAula,
+} from "../redux/store/reducers/aulas.js";
 
-render();
-
-store.subscribe(render);
-
-store.dispatch(alunoIncrementarTempo());
-
-store.dispatch(alunoReduzirTempo());
+const urlToFetch = "https://dogsapi.origamid.dev/json/api/photo";
 
 function fetchUrl(url) {
   return async (dispatch, _getState) => {
@@ -42,6 +36,17 @@ function fetchUrl(url) {
   };
 }
 
-const urlToFetch = "https://dogsapi.origamid.dev/json/api/photo";
-
+render();
+store.subscribe(render);
 store.dispatch(fetchUrl(urlToFetch));
+store.dispatch(alunoIncrementarTempo());
+store.dispatch(alunoReduzirTempo());
+store.dispatch(alunoModificarNome("Leonardo Santos Custódio"));
+store.dispatch(alunoModificarTempo(350));
+store.dispatch(alunoModificarEmail("santos-contato@hotmail.com.br"));
+store.dispatch(alunoModificarEmail("santos-contato@hotmail.com.br"));
+store.dispatch(completarAula(2));
+store.dispatch(completarCurso());
+store.dispatch(resetarCurso());
+store.dispatch(completarAula(2));
+store.dispatch(adicionarAula({ id: 5, nome: "React", completa: true }));
