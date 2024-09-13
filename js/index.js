@@ -38,7 +38,15 @@ function fetchUrl(url) {
 
 render();
 store.subscribe(render);
-store.dispatch(fetchUrl(urlToFetch));
+
+const state = store.getState();
+console.log("", state);
+
+if (state.aluno.imagem.data === null) {
+  store.dispatch(fetchUrl(urlToFetch));
+}
+
+
 store.dispatch(alunoIncrementarTempo());
 store.dispatch(alunoReduzirTempo());
 store.dispatch(alunoModificarNome("Leonardo Santos Custódio"));

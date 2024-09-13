@@ -14,7 +14,7 @@ export const alunoGetImage = () => ({ type: START_FETCH });
 export const alunoGetImageSuccess = (payload) => ({
   type: FETCH_SUCCESS,
   payload,
-  localStorage: 'data-img'
+  localStorage: "data-img",
 });
 
 export const alunoGetImageError = (payload) => ({
@@ -37,13 +37,22 @@ export const alunoModificarNome = (payload) => ({
   payload,
 });
 
+function getLocalStorage(key, initial = null) {
+  try {
+    const dataImg = JSON.parse(window.localStorage.getItem(key));
+    return dataImg?.[0]?.src || initial;
+  } catch (_error) {
+    return initial;
+  }
+}
+
 const alunoInitialState = {
   nome: "Leonardo Santos",
   email: "leo@leo.com",
   diasRestantes: 120,
   imagem: {
     loading: false,
-    data: null,
+    data: getLocalStorage("data-img"),
     error: null,
   },
 };

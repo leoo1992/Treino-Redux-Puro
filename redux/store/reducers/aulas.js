@@ -33,10 +33,11 @@ const aulaInitialState = [
 
 const reducer = immer.produce((state, action) => {
   switch (action.type) {
-    case COMPLETAR_AULA:
+    case COMPLETAR_AULA: {
       const index = state.findIndex((x) => x.id === action.payload);
       if (!isNaN(index) && state[index]) state[index].completa = true;
       break;
+    }
     case COMPLETAR_CURSO:
       state.forEach((aula) => (aula.completa = true));
       break;

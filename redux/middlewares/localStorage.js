@@ -1,8 +1,6 @@
 export const localStorageMiddleware = (store) => (next) => (action) => {
   const response = next(action);
-    if (action.localStorage !== undefined) {
-        window.localStorage.clear();
-        
+  if (action.localStorage !== undefined) {
     window.localStorage.setItem(
       action.localStorage,
       JSON.stringify(action.payload)
