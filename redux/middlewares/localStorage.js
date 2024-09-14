@@ -1,4 +1,4 @@
-export const localStorageMiddleware = (store) => (next) => (action) => {
+export const localStorageMiddleware = (_store) => (next) => (action) => {
   const response = next(action);
   if (action.localStorage !== undefined) {
     window.localStorage.setItem(

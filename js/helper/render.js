@@ -1,4 +1,4 @@
-import store from "../redux/store/storeConfig.js";
+import store from "../../redux/store/storeConfig.js";
 import {
   alunoEl,
   emailEl,
@@ -7,6 +7,7 @@ import {
   aulasfaltaEl,
   image,
   loading,
+  user
 } from "./getElements.js";
 
 export default function render() {
@@ -30,6 +31,12 @@ export default function render() {
     image.style.display = "none";
   }
 
+  if (aluno.usuario.data !== null) {
+    user.innerText = `Usuário: ${(aluno.usuario.data).toUpperCase()}`;
+    user.style.display = "block";
+  } else {
+    user.style.display = "none";
+  }
 
   alunoEl.innerText = `Aluno: ${aluno.nome}`;
   emailEl.innerText = `Email: ${aluno.email}`;

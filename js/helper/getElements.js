@@ -5,3 +5,4 @@ export const aulasEl = document.getElementById("aulas");
 export const aulasfaltaEl = document.getElementById("falta");
 export const image = document.getElementById("image");
 export const loading = document.getElementById("loading");
+export const user = document.getElementById("user");
