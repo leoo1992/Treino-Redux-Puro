@@ -1,14 +1,14 @@
 import store from "../redux/store/storeConfig.js";
-import render from "./render.js";
+import render from "./helper/render.js";
+import fetchPhoto from "./helper/fetchPhoto.js";
+import fetchToken from "./helper/fetchToken.js";
+import fetchUser from "./helper/fetchUser.js";
 import {
   alunoModificarEmail,
   alunoModificarTempo,
   alunoModificarNome,
   alunoIncrementarTempo,
   alunoReduzirTempo,
-  alunoGetImageSuccess,
-  alunoGetImageError,
-  alunoGetImage,
 } from "../redux/store/reducers/aluno.js";
 import {
   completarAula,
@@ -17,35 +17,27 @@ import {
   adicionarAula,
 } from "../redux/store/reducers/aulas.js";
 
-const urlToFetch = "https://dogsapi.origamid.dev/json/api/photo";
+const urlToPhotoFetch = "https://dogsapi.origamid.dev/json/api/photo";
+const urlToTokenFetch = "https://dogsapi.origamid.dev/json/jwt-auth/v1/token";
+const urlToUserFetch = "https://dogsapi.origamid.dev/json/api/user";
+const state = store.getState();
 
-function fetchUrl(url) {
-  return async (dispatch, _getState) => {
-    try {
-      dispatch(alunoGetImage());
-      const data = await fetch(url).then((r) => r.json());
-
-      if (data.message) {
-        dispatch(alunoGetImageError(data.message));
-      } else {
-        dispatch(alunoGetImageSuccess(data, localStorage));
-      }
-    } catch (error) {
-      dispatch(alunoGetImageError(error.message));
-    }
-  };
-}
 
 render();
 store.subscribe(render);
 
-const state = store.getState();
-console.log("", state);
-
 if (state.aluno.imagem.data === null) {
-  store.dispatch(fetchUrl(urlToFetch));
+  store.dispatch(fetchPhoto(urlToPhotoFetch));
 }
 
+if (state.token.data === null) {
+  store.dispatch(fetchToken(urlToTokenFetch));
+}
+
+if (state.aluno.usuario.data === null && state.token.data !== null ) {
+  store.dispatch(fetchUser(urlToUserFetch, state.token.data));
+  store.subscribe(render);
+}
 
 store.dispatch(alunoIncrementarTempo());
 store.dispatch(alunoReduzirTempo());
