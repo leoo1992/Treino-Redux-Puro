@@ -26,14 +26,14 @@ if (state.token.data === null || state.aluno.usuario.data === null) {
   store.dispatch(fetchToken(urlToTokenFetch));
 }
 
-// store.dispatch(alunoIncrementarTempo());
-// store.dispatch(alunoReduzirTempo());
-// store.dispatch(alunoModificarNome("Leonardo Santos Custódio"));
-// store.dispatch(alunoModificarTempo(350));
-// store.dispatch(alunoModificarEmail("santos-contato@hotmail.com.br"));
-// store.dispatch(alunoModificarEmail("santos-contato@hotmail.com.br"));
-// store.dispatch(completarAula(2));
-// store.dispatch(completarCurso());
-// store.dispatch(resetarCurso());
-// store.dispatch(completarAula(2));
-// store.dispatch(adicionarAula({ id: 5, nome: "React", completa: true }));
+store.dispatch(alunoIncrementarTempo());
+store.dispatch(alunoReduzirTempo());
+store.dispatch(alunoModificarNome("Leonardo Santos Custódio"));
+store.dispatch(alunoModificarTempo(350));
+store.dispatch(alunoModificarEmail("santos-contato@hotmail.com.br"));
+store.dispatch(alunoModificarEmail("santos-contato@hotmail.com.br"));
+store.dispatch(completarAula(2));
+store.dispatch(completarCurso());
+store.dispatch(resetarCurso());
+store.dispatch(completarAula(2));
+store.dispatch(adicionarAula({ id: 5, nome: "React", completa: true }));
