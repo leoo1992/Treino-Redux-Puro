@@ -11,7 +11,7 @@ import {
 } from "./getElements.js";
 
 export default function render() {
-  const { aulas, aluno } = store.getState();
+  const { aulas, aluno, token } = store.getState();
 
   if (aluno.imagem.loading) {
     loading.style.display = "block";
@@ -31,11 +31,14 @@ export default function render() {
     image.style.display = "none";
   }
 
+  if (aluno.usuario.loading === true) {
+    user.innerText = `Carregando...`;
+    user.style.display = "block";
+   }
+
   if (aluno.usuario.data !== null) {
     user.innerText = `Usuário: ${(aluno.usuario.data).toUpperCase()}`;
     user.style.display = "block";
-  } else {
-    user.style.display = "none";
   }
 
   alunoEl.innerText = `Aluno: ${aluno.nome}`;

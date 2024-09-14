@@ -13,7 +13,7 @@ const FETCH_ERROR_USER = "aluno/FETCH_ERROR_USER";
 export const alunoIncrementarTempo = () => ({ type: INCREMENTAR_TEMPO });
 export const alunoReduzirTempo = () => ({ type: REDUZIR_TEMPO });
 export const alunoGetImage = () => ({ type: START_FETCH_PHOTO });
-export const alunoGetUser = (payload) => ({ type: START_FETCH_USER, payload });
+export const alunoGetUser = () => ({ type: START_FETCH_USER });
 
 export const alunoGetImageSuccess = (payload) => ({
   type: FETCH_SUCCESS_PHOTO,
@@ -64,7 +64,8 @@ function getPhotoLocalStorage(key, initial = null) {
 function getUserLocalStorage(key, initial = null) {
   try {
     const user = JSON.parse(window.localStorage.getItem(key));
-    return user?.username || initial;
+    return user || initial;
+    lo
   } catch (_error) {
     return initial;
   }
