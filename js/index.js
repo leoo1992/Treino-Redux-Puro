@@ -1,6 +1,5 @@
 import store from "../redux/store/storeConfig.js";
 import render from "./helper/render.js";
-import fetchPhoto from "./helper/fetchPhoto.js";
 import fetchToken from "./helper/fetchToken.js";
 import {
   alunoModificarEmail,
@@ -8,13 +7,13 @@ import {
   alunoModificarNome,
   alunoIncrementarTempo,
   alunoReduzirTempo,
-} from "../redux/store/reducers/aluno.js";
+} from "../redux/store/exports/aluno.js";
 import {
   completarAula,
   completarCurso,
   resetarCurso,
   adicionarAula,
-} from "../redux/store/reducers/aulas.js";
+} from "../redux/store/exports/aulas.js";
 
 const urlToPhotoFetch = "https://dogsapi.origamid.dev/json/api/photo";
 const urlToTokenFetch = "https://dogsapi.origamid.dev/json/jwt-auth/v1/token";
@@ -22,10 +21,6 @@ const state = store.getState();
 
 render();
 store.subscribe(render);
-
-if (state.aluno.imagem.data === null ) {
-  store.dispatch(fetchPhoto(urlToPhotoFetch));
-}
 
 if (state.token.data === null || state.aluno.usuario.data === null) {
   store.dispatch(fetchToken(urlToTokenFetch));

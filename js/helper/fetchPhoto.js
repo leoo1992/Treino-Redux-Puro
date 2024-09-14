@@ -2,7 +2,7 @@ import {
     alunoGetImageSuccess,
     alunoGetImageError,
     alunoGetImage,
-  } from "../../redux/store/reducers/aluno.js";
+  } from "../../redux/store/exports/aluno.js";
 
 export default function fetchPhoto(url) {
   return async (dispatch, _getState) => {

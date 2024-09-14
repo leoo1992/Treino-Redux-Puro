@@ -7,47 +7,58 @@ import {
   aulasfaltaEl,
   image,
   loading,
-  user
+  user,
 } from "./getElements.js";
 
 export default function render() {
-  const { aulas, aluno, token } = store.getState();
+  const { aulas, aluno } = store.getState();
+  const { usuario, imagem, nome, email, diasRestantes } = aluno;
 
-  if (aluno.imagem.loading) {
-    loading.style.display = "block";
-  } else {
-    loading.style.display = "none";
+  renderPhoto();
+  renderUser();
+  renderAluno();
+  renderAulas();
+
+  function renderPhoto() {
+    if (imagem.loading) {
+      loading.style.display = "block";
+      loading.innerText = "Carregando...";
+    }
+    
+    if (imagem.error) {
+      loading.innerText = imagem.error;
+      loading.style.display = "block";
+    }
+    
+    if (imagem.data) {
+      image.src = imagem.data;
+      image.style.display = "block";
+      loading.style.display = "none";
+    } else {
+      image.style.display = "none";
+    }
   }
 
-  if (aluno.imagem.error !== null) {
-    loading.innerText = aluno.imagem.error;
-    loading.style.display = "block";
+  function renderUser() {
+    if (usuario.loading) {
+      user.innerText = "Carregando...";
+    } else if (usuario.data) {
+      user.innerText = `Usuário: ${usuario.data.toUpperCase()}`;
+    }
+    user.style.display = usuario.loading || usuario.data ? "block" : "none";
   }
 
-  if (aluno.imagem.data) {
-    image.src = aluno?.imagem?.data;
-    image.style.display = "block";
-  } else {
-    image.style.display = "none";
+  function renderAluno() {
+    alunoEl.innerText = `Aluno: ${nome}`;
+    emailEl.innerText = `Email: ${email}`;
   }
 
-  if (aluno.usuario.loading === true) {
-    user.innerText = `Carregando...`;
-    user.style.display = "block";
-   }
-
-  if (aluno.usuario.data !== null) {
-    user.innerText = `Usuário: ${(aluno.usuario.data).toUpperCase()}`;
-    user.style.display = "block";
+  function renderAulas() {
+    const aulasCompletas = aulas.filter((a) => a.completa).length;
+    diasEl.innerText = `Dias restantes: ${diasRestantes}`;
+    aulasEl.innerText = `Aulas completas: ${aulasCompletas}`;
+    aulasfaltaEl.innerText = `Aulas restantes: ${
+      aulas.length - aulasCompletas
+    }`;
   }
-
-  alunoEl.innerText = `Aluno: ${aluno.nome}`;
-  emailEl.innerText = `Email: ${aluno.email}`;
-  diasEl.innerText = `Dias restantes: ${aluno.diasRestantes}`;
-  aulasEl.innerText = `Aulas completas: ${
-    aulas.filter((a) => a.completa === true).length
-  }`;
-  aulasfaltaEl.innerText = `Aulas restantes: ${
-    aulas.length - aulas.filter((a) => a.completa === true).length
-  }`;
 }

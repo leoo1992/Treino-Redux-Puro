@@ -2,8 +2,9 @@ import {
   alunoGetUserSuccess,
   alunoGetUserError,
   alunoGetUser,
-} from "../../redux/store/reducers/aluno.js";
+} from "../../redux/store/exports/aluno.js";
 
+//O fetch do USER é feito junto ao token
 export default function fetchUser(url) {
   return async (dispatch, getState) => {
     const token = getState().token.data;

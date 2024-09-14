@@ -1,9 +1,10 @@
+import fetchUser from "./fetchUser.js";//O fetch do USER é feito depois do sucesso do fetch do token
+import fetchPhoto from "./fetchPhoto.js";//O fetch da PHOTO é feito depois do sucesso do fetch do token
 import {
   tokenGetSuccess,
   tokenGetError,
   tokenGet,
-} from "../../redux/store/reducers/token.js";
-import fetchUser from "./fetchUser.js";
+} from "../../redux/store/exports/token.js";
 
 export default function fetchToken(url) {
   return async (dispatch, getState) => {
@@ -31,6 +32,10 @@ export default function fetchToken(url) {
 
           if (state.aluno.usuario.data === null) {
             dispatch(fetchUser(urlToUserFetch, response.token));
+          }
+
+          if (state.aluno.imagem.data === null ) {
+            store.dispatch(fetchPhoto(urlToPhotoFetch));
           }
         }
       } catch (error) {

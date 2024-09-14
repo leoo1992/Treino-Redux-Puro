@@ -1,34 +1,5 @@
-const START_FETCH = "token/START_FETCH";
-const FETCH_SUCCESS = "token/FETCH_SUCCESS";
-const FETCH_ERROR = "token/FETCH_ERROR";
-
-export const tokenGet = (payload) => ({ type: START_FETCH, payload });
-
-export const tokenGetSuccess = (payload) => ({
-  type: FETCH_SUCCESS,
-  payload,
-  localStorage: "auth",
-});
-
-export const tokenGetError = (payload) => ({
-  type: FETCH_ERROR,
-  payload,
-});
-
-function getLocalStorage(key, initial = null) {
-  try {
-    const data = JSON.parse(window.localStorage.getItem(key));
-    return data || initial;
-  } catch (_error) {
-    return initial;
-  }
-}
-
-const initialState = {
-  loading: false,
-  data: getLocalStorage("auth"),
-  error: null,
-};
+import { initialState } from "../initialStates/token.js";
+import { START_FETCH, FETCH_SUCCESS, FETCH_ERROR } from "../exports/token.js";
 
 const reducer = immer.produce((state, action) => {
   switch (action.type) {
