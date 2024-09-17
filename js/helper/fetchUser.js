@@ -4,15 +4,15 @@ import {
   alunoGetUser,
 } from "../../redux/store/exports/aluno.js";
 
-//O fetch do USER é feito junto ao token
-export default function fetchUser(url) {
+export default function fetchUser() {
   return async (dispatch, getState) => {
+    const urlToUserFetch = "https://dogsapi.origamid.dev/json/api/user";
     const token = getState().token.data;
 
     if (token) {
       try {
         dispatch(alunoGetUser(token));
-        const data = await fetch(url, {
+        const data = await fetch(urlToUserFetch, {
           method: "GET",
           headers: {
             Authorization: "Bearer " + token,
@@ -29,7 +29,7 @@ export default function fetchUser(url) {
         dispatch(tokenGetError(error.message));
       }
     } else {
-      return dispatch(alunoGetUserError("Erro"));
+      return dispatch(alunoGetUserError("Sem token"));
     }
   };
 }

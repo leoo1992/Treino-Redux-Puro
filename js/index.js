@@ -1,6 +1,9 @@
 import store from "../redux/store/storeConfig.js";
 import render from "./helper/render.js";
 import fetchToken from "./helper/fetchToken.js";
+import fetchUser from "./helper/fetchUser.js";
+import fetchPhoto from "./helper/fetchPhoto.js";
+
 import {
   alunoModificarEmail,
   alunoModificarTempo,
@@ -15,16 +18,36 @@ import {
   adicionarAula,
 } from "../redux/store/exports/aulas.js";
 
-const urlToPhotoFetch = "https://dogsapi.origamid.dev/json/api/photo";
-const urlToTokenFetch = "https://dogsapi.origamid.dev/json/jwt-auth/v1/token";
-const state = store.getState();
-
 render();
 store.subscribe(render);
+let state = store.getState();
 
-if (state.token.data === null || state.aluno.usuario.data === null) {
-  store.dispatch(fetchToken(urlToTokenFetch));
+async function login() {
+  if (validaSeTemUsuarioESeNaoTemToken()) await store.dispatch(fetchToken());
+  if (validaSeTemToken()) await store.dispatch(fetchUser());
+  if (validaSeTemTokenEAlunoLogado()) await store.dispatch(fetchPhoto());
 }
+
+function validaSeTemUsuarioESeNaoTemToken() {
+  state = store.getState();
+  return (
+    state.token.data === null &&
+    state.aluno.user.username &&
+    state.aluno.user.password
+  );
+}
+
+function validaSeTemTokenEAlunoLogado() {
+  state = store.getState();
+  return state.token.data !== null && state.aluno.usuario.data;
+}
+
+function validaSeTemToken() {
+  state = store.getState();
+  return state.token.data !== null;
+}
+
+login();
 
 store.dispatch(alunoIncrementarTempo());
 store.dispatch(alunoReduzirTempo());
